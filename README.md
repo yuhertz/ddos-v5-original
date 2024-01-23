@@ -25,3 +25,4 @@ pkg install git
 pkg install python
 pkg install python-pip
 ```
+The latest and best version: (https://github.com/yuhertz/ddos-v5)
