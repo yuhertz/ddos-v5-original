@@ -22,9 +22,9 @@ class Brutalize:
         self.data = str.encode("x" * self.force)
         self.len = len(self.data)
 
-    def print_status(status_code, requested_data_size):
-      print(colored("Status: [", "white") + colored(str(status_code), "red") + colored("]", "white"), end=" ")
-      print(colored("--> requested data size: ", "white") + colored(requested_data_size, "cerulean"), file=sys.stderr)
+    def print_status(self, status_code, requested_data_size):
+      print(colored("Status: [", "red") + colored(str(status_code), "red") + colored("]", "red") + colored(" --> requested data size: ", "white") + colored(requested_data_size, "blue"), file=sys.stderr)
+
 
 
 
@@ -53,7 +53,7 @@ class Brutalize:
 
             if size != 0:
                 self.total += self.sent *bytediff / gb* interval
-                self.print_status(self, 429, "107.84KB")
+                self.print_status(429, "107.84KB")
                 
 
 
